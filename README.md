@@ -26,32 +26,12 @@ conda activate glms
 
 #### 1.3 Install dependencies
 
-If you want to pre-train or fine-tune models, make sure you are using Nvidia GPU(s).  
-Install [Nvidia driver](https://www.nvidia.com/download/index.aspx) and corresponding version of [CUDA driver](https://developer.nvidia.com/cuda-downloads) (> 11.0, we used CUDA 12.1).  
-
-Also [Pytorch](https://pytorch.org/) (>=2.0) with corresponding CUDA version should also install.  
-We recommend to use `pip` to install python packages that needed.  
 ```bash
-python3 -m pip install torch --index-url https://download.pytorch.org/whl/cu121
-```
-
-If you just want to use models for inference (prediction), you can install Pytorch GPU version (above) or install Pytorch CPU version if your machine has no Nvidia GPU.  
-```bash
-python3 -m pip install torch --index-url https://download.pytorch.org/whl/cpu
-```
-
-Next install other required dependencies.
-```bash
-git clone --recursive https://github.com/zhangtaolab/Plant_DNA_LLMs
-cd Plant_DNA_LLMs
+git clone --recursive https://github.com/hu-lab-PlantGLM/PlantGLM.git
+cd PlantGLM
 python3 -m pip install -r requirements.txt
 ```
 
-(Optional) If you want to train a [mamba](https://github.com/state-spaces/mamba) model, you need to install several extra dependencies, also you should have a Nvidia GPU.
-```bash
-pip install causal-conv1d<=1.2.0
-pip install mamba-ssm<2.0.0
-```
 
 ### Pretrained Models
 | Base model             | Model name                   | Params | Hugging Face | Model Scope |
