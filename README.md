@@ -1,4 +1,4 @@
-# Plant foundation DNA large language models (LLMs)
+# PlantGLM: A Genetic Language Model for Plant Genomics 
 
 ## 1. Environment
 
