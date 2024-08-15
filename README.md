@@ -1,8 +1,8 @@
 # PlantGLM: A Genetic Language Model for Plant Genomics 
 
-## 1. Environment
+Welcome to the official repository for the paper "PlantGLM: A Genetic Language Model for Plant Genomics".
 
-[Anaconda](https://docs.anaconda.com/free/anaconda/install/) package manager is recommended for building the training environment. For pre-train and fine-tune models, please ensure that you have a Nvidia GPU and the corresponding drivers are installed. For inference, devices without Nvidia GPU (CPU only, AMD GPU, Apple Silion, etc.) are also acceptable.
+## 1. Environment
 
 #### 1.1 Download and install [Anaconda](https://www.anaconda.com/download) package manager
 
