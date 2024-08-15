@@ -1,4 +1,4 @@
-# PlantGLM: A Genetic Language Model for Plant Genomics 
+# PlantGLM
 
 Welcome to the official repository for the paper "PlantGLM: A Genetic Language Model for Plant Genomics".
 
