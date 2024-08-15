@@ -31,51 +31,62 @@ git clone --recursive https://github.com/hu-lab-PlantGLM/PlantGLM.git
 cd PlantGLM
 python3 -m pip install -r requirements.txt
 ```
-## 3. Pre-train
+## 2. Pre-train
 
 ## 3. Fine-tune
 
-#### 3.1 Classification
+#### 3.1 Classification and Regression
 
 ```bash
 python fine_tune.py \
-    --data_path ./data/classification \
-    --model_path /path_to_the_data/train.csv \
-    --test_data /path_to_the_data/test.csv \
+    --data_path './sample_data/classification' \
+    --model_path /model \
+    --problem_type 'classification' or 'egression'\
     --eval_data /path_to_the_data/dev.csv \
-    --train_task classification \
-    --labels 'No;Yes' \
-    --run_name plant_dnagpt_promoters \
-    --per_device_train_batch_size 4 \
-    --per_device_eval_batch_size 8 \
+    --max_length 170 \
+    --output_dir './output' \
+    --per_device_train_batch_size 16 \
+    --per_device_eval_batch_size 16 \
+    --num_train_epochs 10 \
     --learning_rate 1e-5 \
-    --num_train_epochs 5 \
-    --load_best_model_at_end \
-    --metric_for_best_model 'f1' \
+    --bf16 True \
+    --gradient_accumulation_steps 16 \
+    --gradient_accumulation_steps 'acc' \
     --save_strategy epoch \
-    --logging_strategy epoch \
-    --evaluation_strategy epoch \
-    --output_dir finetune/plant-dnagpt-promoter
+    --eval_strategy epoch \
+    --adam_beta1 0.9 \
+    --adam_beta2 0.999 \
+
 ```
 
 In this script:  
-1. `--model_name_or_path`: Path to the foundation model you downloaded
-2. `--train_data`: Path to the train dataset
-3. `--test_data`: Path to the test dataset, omit it if no test data available
-4. `--dev_data`: Path to the validation dataset, omit it if no validation data available
-5. `--train_task`: Determine the task type, should be classification, multi-classification or regression
-6. `--labels`: Set the labels for classification task, separated by `;`
-7. `--run_name`: Name of the fine-tuned model
-8. `--per_device_train_batch_size`: Batch size for training model
-9. `--per_device_eval_batch_size`: Batch size for evaluating model
-10. `--learning_rate`: Learning rate for training model
-11. `--num_train_epochs`: Epoch for training model (also you can train model with steps, then you should change the strategies for save, logging and evaluation)
-12. `--load_best_model_at_end`: Whether to load the model with the best performance on the evaluated data, default is `True`
-13. `--metric_for_best_model`: Use which metric to determine the best model, default is `loss`, can be `accuracy`, `precison`, `recall`, `f1` or `matthews_correlation` for classification task, and `r2` or `spearmanr` for regression task
-14. `--save_strategy`: Strategy for saving model, can be `epoch` or `steps`
-15. `--logging_strategy`: Strategy for logging training information, can be `epoch` or `steps`
-16. `--evaluation_strategy`: Strategy for evaluating model, can be `epoch` or `steps`
-17. `--output_dir`: Where to save the fine-tuned model
+
+1. **`data_path: str = field(default=None)`**: Path to the training dataset.
+2. **`model_path: str = field(default=None)`**: Path to the pre-trained model, which could be a local directory or a URL.
+3. **`checkpoint_path: str = field(default=None)`**: Path to a saved checkpoint, if available, to resume training from a previous state.
+4. **`problem_type: str = field(default="regression")`**: Determines the type of task; it can be `regression`, `classification`, or `multi-classification`.
+5. **`max_length: int = field(default=1000)`**: Maximum length of the input sequences. Inputs longer than this will be truncated.
+6. **`run_name: str = field(default="run")`**: Name of the training run, useful for organizing and distinguishing different experiments.
+7. **`output_dir: str = field(default="./output")`**: Directory where the output, including the trained model and logs, will be saved.
+8. **`optim: str = field(default="adamw_hf")`**: Choice of optimizer; default is AdamW as implemented by Hugging Face.
+9. **`per_device_train_batch_size: int = field(default=1)`**: Batch size to use per device (e.g., per GPU) during training.
+10. **`per_device_eval_batch_size: int = field(default=1)`**: Batch size to use per device during evaluation.
+11. **`num_train_epochs: int = field(default=1)`**: Number of epochs to train the model; each epoch means one full pass over the training data.
+12. **`fp16: bool = field(default=False)`**: Whether to use 16-bit floating point precision (FP16) for training to save memory and speed up computation.
+13. **`bf16: bool = field(default=False)`**: Whether to use BFloat16 precision for training, similar to FP16 but with a larger dynamic range.
+14. **`logging_strategy: str = field(default="epoch")`**: Strategy for logging training information; options include `epoch` and `steps`.
+15. **`save_strategy: str = field(default="epoch")`**: Strategy for saving the model checkpoints; can be `epoch` or `steps`.
+16. **`eval_strategy: str = field(default="epoch")`**: Strategy for evaluating the model; options include `epoch` and `steps`.
+17. **`lr_scheduler_type: str = field(default="linear")`**: Type of learning rate scheduler to use; `linear` is the default.
+18. **`warmup_steps: int = field(default=100)`**: Number of steps for the learning rate warmup phase.
+19. **`learning_rate: float = field(default=5e-5)`**: Initial learning rate for the optimizer.
+20. **`adam_beta1: float = field(default=0.9)`**: The beta1 parameter for the Adam optimizer, affecting the first moment estimate.
+21. **`adam_beta2: float = field(default=0.999)`**: The beta2 parameter for the Adam optimizer, affecting the second moment estimate.
+22. **`weight_decay: float = field(default=0.01)`**: Weight decay rate for regularization to prevent overfitting.
+23. **`gradient_accumulation_steps: int = field(default=1)`**: Number of steps to accumulate gradients before updating the model parameters.
+24. **`save_total_limit: int = field(default=1)`**: Maximum number of checkpoints to keep; older ones will be deleted.
+25. **`load_best_model_at_end: bool = field(default=True)`**: Whether to load the model with the best evaluation performance at the end of training.
+26. **`metric_for_best_model: str = field(default="r2")`**: Metric used to determine the best model; for regression tasks, this could be `r2`, and for classification, options include `accuracy`, `f1`, etc.
 
 
 #### 3.2 Regression
