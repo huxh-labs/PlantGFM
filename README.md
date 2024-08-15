@@ -7,6 +7,12 @@
 
 Welcome to the official repository for the paper "PlantGLM: A Genetic Language Model for Plant Genomics".
 
+In this repository, you will find the following:
+
+- Inference code for our models
+- Pre-trained weights for all 9 NT models and 2 SegmentNT models
+- Instructions for using the code and pre-trained models
+
 ## 1. Environment
 
 #### 1.1 Download and install [Anaconda](https://www.anaconda.com/download) package manager
