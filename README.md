@@ -17,11 +17,11 @@ In this repository, you will find the following:
 
 #### 1.1 Download and install [Anaconda](https://www.anaconda.com/download) package manager
 
-#### 1.2 Create environment (We trained the models with python 3.11)
+#### 1.2 Create environment 
 
 ```bash
-conda create -n llms python=3.11
-conda activate llms
+conda create -n glms python=3.8
+conda activate glms
 ```
 
 #### 1.3 Install dependencies
