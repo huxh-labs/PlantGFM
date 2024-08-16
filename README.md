@@ -92,7 +92,7 @@ In this script:
 
 ## 3. Fine-tune ✏️
 If you want to fine-tune our model, please take note of the following.
-    - **`Model Selection`**:We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
+- **`Model Selection`**:We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
     - Pre-trained weights for all 9 NT models and 2 SegmentNT models
     - Instructions for using the code and pre-trained models
 We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
