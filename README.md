@@ -92,8 +92,10 @@ In this script:
 
 ## 3. Fine-tune ✏️
 If you want to fine-tune our model, please take note of the following.
+
 - **`Model Selection`** : We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
-- **`Preprocessing`** : The sequences need to be converted into overlapping 3-mers. For example, the sequence `ATCGACCT` should be processed into `ATC TCG CGA GAC ACC CCT`. This ensures that the model can effectively utilize the sequence information during fine-tuning.
+- **`Sequence Preprocessing`** : The sequences need to be converted into overlapping 3-mers. For example, the sequence `"ATCGACCT"` should be processed into `"ATC TCG CGA GAC ACC CCT"`. This ensures that the model can effectively utilize the sequence information during fine-tuning.
+- **`Handling 'N' Bases`** : Although our model was pre-trained on the bases `A`, `T`, `C`, and `G`, a small amount of `'N'` is also allowed.
 
 #### 3.1 Classification and Regression
 
