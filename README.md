@@ -95,7 +95,7 @@ In this script:
 ```bash
 python fine_tune.py \
     --data_path './sample_data/classification' \
-    --model_path /model \
+    --model_path /path/to/model \
     --problem_type 'classification' or 'egression'\
     --eval_data /path_to_the_data/dev.csv \
     --max_length 170 \
@@ -119,8 +119,7 @@ In this script:
 1. data_path: default=None,Path to the fine-tuning dataset.
 2. model_path: default=None,Path to the pre-trained model.
 3. checkpoint_path: default=None, Path to a saved checkpoint, if available, to resume training from a previous state.
-4. problem_type: default="regression", Determines the type of task; it can be `regression`, `classification`.
-5. max_length: default=1000, Maximum length of the input sequences. Inputs longer than this will be truncated.
+4. max_length: default=1000, Maximum length of the input sequences. Inputs longer than this will be truncated.
 6. run_name: default="run", Name of the training run, useful for organizing and distinguishing different experiments.
 7. output_dir: default="./output", Directory where the output, including the trained model and logs, will be saved.
 8. optim: default="adamw_hf",default is AdamW as implemented by Hugging Face.
@@ -141,25 +140,22 @@ In this script:
 23. gradient_accumulation_steps: default=1, Number of steps to accumulate gradients before updating the model parameters.
 24. save_total_limit: default=1, Maximum number of checkpoints to keep; older ones will be deleted.
 25. load_best_model_at_end: default=True, Whether to load the model with the best evaluation performance at the end of training.
-26. metric_for_best_model: default="r2", Metric used to determine the best model; for regression tasks, this could be `r2`, and for classification, options include `accuracy`, `f1`, etc.
+26. metric_for_best_model: default="auprc", you can choose between `auprc` for precision-recall evaluation or `mcc` for mean accuracy
 
 
 #### 3.2 Segmentation
 ```bash
 python pre_train.py \
     --data_path './sample_data/pre-train' \
-    --model_path /model \
-    --problem_type 'classification' or 'regression'\
-    --eval_data /path_to_the_data/dev.csv \
-    --max_length 170 \
+    --model_path /path/to/model \
+    --max_length 1000 \
     --output_dir './output' \
-    --per_device_train_batch_size 16 \
-    --per_device_eval_batch_size 16 \
+    --per_device_train_batch_size 8 \
+    --per_device_eval_batch_size 8 \
     --num_train_epochs 10 \
-    --learning_rate 1e-5 \
+    --learning_rate 5e-5 \
     --bf16 True \
-    --gradient_accumulation_steps 16 \
-    --gradient_accumulation_steps 'acc' \
+    --metric_for_best_model 'acc' \
     --save_strategy epoch \
     --eval_strategy epoch \
     --adam_beta1 0.9 \
