@@ -33,7 +33,7 @@ python3 -m pip install -r requirements.txt
 ```
 ## 2. Pre-train
 
-
+If you want to retrain our model, you first need to download [PlantGLM](https://github.com/hu-lab-PlantGLM/PlantGLM.git) locally and then format your data according to the structure in the `/sample/pre-data` directory.
 
 ```bash
 python pre_train.py \
