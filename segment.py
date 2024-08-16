@@ -41,7 +41,7 @@ class TrainingArguments(transformers.TrainingArguments):
     gradient_accumulation_steps: int = field(default=1)
     save_total_limit: int = field(default=1)
     load_best_model_at_end: bool = field(default=True)
-    metric_for_best_model: str = field(default="r2")
+    metric_for_best_model: str = field(default="auprc")
     
 
 class SegmentDataset(Dataset):
@@ -126,7 +126,7 @@ class SegmentationModel(torch.nn.Module):
         self.cdshead = nn.Sequential(nn.Linear(8*self.max_len,self.max_len), nn.Dropout(p=0.5, inplace=False))
         self.loss = nn.BCEWithLogitsLoss()
 
-    def forward(self, input_ids, labels):
+    def forward(self, input_ids, labels,**kwargs):
         x = self.gpt2embd(input_ids)
         x = self.unethead(x)
         x = self.cdshead(x)
@@ -148,7 +148,7 @@ def compute_metrics_for_segmentation_task(eval_pred):
     logits, labels = eval_pred
     if isinstance(logits, tuple):
         logits = logits[0]
-    pred_logits, pred_labels = sigmoid(logits), logits_to_labels(pred_logits)
+    pred_logits, pred_labels = sigmoid(logits), logits_to_labels(logits)
     mcc = sklearn.metrics.matthews_corrcoef(labels.ravel(),pred_labels.ravel())
     auprc = sklearn.metrics.average_precision_score(pred_labels, pred_logits, average="micro")
     
@@ -172,7 +172,7 @@ def run_segmentation():
     )
     val_dataset = SegmentDataset(
         tokenizer=tokenizer, 
-        data_path=os.path.join(path_and_control_args.data_path, "dev.tsv"),
+        data_path=os.path.join(path_and_control_args.data_path, "val.tsv"),
         max_length=path_and_control_args.max_length
     )
 
