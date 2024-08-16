@@ -33,6 +33,8 @@ python3 -m pip install -r requirements.txt
 ```
 ## 2. Pre-train
 
+
+
 ```bash
 python pre_train.py \
     --train_data_path './sample_data/pre-train/train.txt' \
@@ -92,6 +94,10 @@ In this script:
 
 #### 3.1 Classification and Regression
 
+```csv
+sequence,label
+```
+
 ```bash
 python fine_tune.py \
     --data_path './sample_data/classification' \
@@ -144,6 +150,11 @@ In this script:
 
 
 #### 3.2 Segmentation
+
+```csv
+sequence,label
+```
+
 ```bash
 python segment.py \
     --data_path './sample_data/pre-train' \
