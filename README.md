@@ -140,12 +140,12 @@ In this script:
 23. gradient_accumulation_steps: default=1, Number of steps to accumulate gradients before updating the model parameters.
 24. save_total_limit: default=1, Maximum number of checkpoints to keep; older ones will be deleted.
 25. load_best_model_at_end: default=True, Whether to load the model with the best evaluation performance at the end of training.
-26. metric_for_best_model: default="auprc", you can choose between `auprc` for precision-recall evaluation or `mcc` for mean accuracy
+26. metric_for_best_model: default="r2", Metric used to determine the best model; for regression tasks, this could be `r2`, and for classification, options include `acc`, etc.
 
 
 #### 3.2 Segmentation
 ```bash
-python pre_train.py \
+python segment.py \
     --data_path './sample_data/pre-train' \
     --model_path /path/to/model \
     --max_length 1000 \
@@ -155,7 +155,7 @@ python pre_train.py \
     --num_train_epochs 10 \
     --learning_rate 5e-5 \
     --bf16 True \
-    --metric_for_best_model 'acc' \
+    --metric_for_best_model 'auprc' \
     --save_strategy epoch \
     --eval_strategy epoch \
     --adam_beta1 0.9 \
@@ -190,6 +190,6 @@ In this script:
 23. gradient_accumulation_steps: default=1, Number of steps to accumulate gradients before updating the model parameters.
 24. save_total_limit: default=1, Maximum number of checkpoints to keep; older ones will be deleted.
 25. load_best_model_at_end: default=True, Whether to load the model with the best evaluation performance at the end of training.
-26. metric_for_best_model: default="r2", Metric used to determine the best model; for regression tasks, this could be `r2`, and for classification, options include `accuracy`, `f1`, etc.
+26. metric_for_best_model: default="r2",Metric used to determine the best model, you can choose between `auprc` for precision-recall evaluation or `mcc` for mean accuracy
 
 
