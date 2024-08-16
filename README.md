@@ -201,6 +201,6 @@ In this script:
 23. gradient_accumulation_steps: default=1, Number of steps to accumulate gradients before updating the model parameters.
 24. save_total_limit: default=1, Maximum number of checkpoints to keep; older ones will be deleted.
 25. load_best_model_at_end: default=True, Whether to load the model with the best evaluation performance at the end of training.
-26. metric_for_best_model: default="r2",Metric used to determine the best model, you can choose between `auprc` for precision-recall evaluation or `mcc` for mean accuracy
+26. metric_for_best_model: default="auprc",Metric used to determine the best model, you can choose between `auprc` for precision-recall evaluation or `mcc` for mean accuracy
 
 
