@@ -175,6 +175,12 @@ def run_segmentation():
         data_path=os.path.join(path_and_control_args.data_path, "val.tsv"),
         max_length=path_and_control_args.max_length
     )
+    test_dataset = SegmentDataset(
+        tokenizer=tokenizer, 
+        data_path=os.path.join(path_and_control_args.data_path, "test.tsv"),
+        max_length=path_and_control_args.max_length
+    )
+
 
     model = SegmentationModel(path_and_control_args.model_path, path_and_control_args.max_length).to("cuda")
 
@@ -188,7 +194,8 @@ def run_segmentation():
     )
 
     trainer.train()
-
+    test_results = trainer.evaluate(eval_dataset=test_dataset)
+    print("Test Results:", test_results)
 
 if __name__ == "__main__":
     run_segmentation()
