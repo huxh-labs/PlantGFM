@@ -33,6 +33,61 @@ python3 -m pip install -r requirements.txt
 ```
 ## 2. Pre-train
 
+```bash
+python pre_train.py \
+    --train_data_path './sample_data/pre-train/train.txt' \
+    --dev_data_path './sample_data/pre-train/dev.txt' \
+    --tokenizer_path '/path/to/model'\
+    --max_length 1024 \
+    --init_model_path '/path/to/model' \
+    --output_dir './output' \
+    --per_device_train_batch_size 10 \
+    --per_device_eval_batch_size 10 \
+    --max_steps 10000 \
+    --logging_steps 1000 \
+    --save_steps 1000 \
+    --eval_steps 1000 \
+    --learning_rate 5e-4 \
+    --gradient_accumulation_steps 4 \
+    --adam_beta1 0.9 \
+    --adam_beta2 0.999 \
+
+```
+
+In this script:  
+
+以下是你需要的注释：
+
+1. **`train_data_path`**: default="./train.txt", Path to the training dataset.
+2. **`dev_data_path`**: default="./dev.txt", Path to the validation dataset.
+3. **`tokenizer_path`**: default="./gpt2", Path to the pre-trained tokenizer.
+4. **`max_length`**: default=1024, Maximum length of the input sequences; inputs longer than this will be truncated.
+5. **`init_model_path`**: default="./gpt2", Path to the pre-trained model that will be fine-tuned.
+6. **`checkpoint_path`**: default=None, Path to a saved checkpoint, if available, to resume training from a previous state.
+7. **`output_dir`**: default=None, Directory where the output, including the trained model and logs, will be saved.
+8. **`optim`**: default="adamw_hf", Optimization algorithm to be used for training.
+9. **`per_device_train_batch_size`**: default=10, Batch size per device during training.
+10. **`per_device_eval_batch_size`**: default=10, Batch size per device during evaluation.
+11. **`max_steps`**: default=10000, Maximum number of training steps.
+12. **`fp16`**: default=True, Whether to use 16-bit (mixed) precision training instead of 32-bit.
+13. **`bf16`**: default=False, Whether to use bfloat16 precision for training.
+14. **`logging_strategy`**: default="steps", The strategy for logging; can be "steps" or "epoch".
+15. **`logging_steps`**: default=1000, Number of update steps between logging events.
+16. **`save_strategy`**: default="steps", The strategy for saving the model; can be "steps" or "epoch".
+17. **`save_steps`**: default=1000, Number of update steps between model saves.
+18. **`evaluation_strategy`**: default="steps", The strategy for evaluation; can be "steps" or "epoch".
+19. **`eval_steps`**: default=1000, Number of update steps between evaluations.
+20. **`lr_scheduler_type`**: default="cosine", The learning rate scheduler type; can be "linear", "cosine", "polynomial", etc.
+21. **`warmup_steps`**: default=1000, Number of steps used for a linear warmup from 0 to the learning rate.
+22. **`learning_rate`**: default=5e-4, The initial learning rate for training.
+23. **`adam_beta1`**: default=0.9, Beta1 parameter for the AdamW optimizer.
+24. **`adam_beta2`**: default=0.999, Beta2 parameter for the AdamW optimizer.
+25. **`weight_decay`**: default=0.01, Weight decay to apply to the optimizer.
+26. **`gradient_accumulation_steps`**: default=4, Number of steps to accumulate gradients before performing a backward/update pass.
+27. **`save_total_limit`**: default=1, The maximum number of checkpoints to keep; older ones will be deleted.
+
+
+
 ## 3. Fine-tune
 
 #### 3.1 Classification and Regression
@@ -91,8 +146,8 @@ In this script:
 
 #### 3.2 Segmentation
 ```bash
-python fine_tune.py \
-    --data_path './sample_data/classification' \
+python pre_train.py \
+    --data_path './sample_data/pre-train' \
     --model_path /model \
     --problem_type 'classification' or 'regression'\
     --eval_data /path_to_the_data/dev.csv \
