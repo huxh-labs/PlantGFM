@@ -13,7 +13,7 @@ In this repository, you will find the following:
 - Pre-trained weights for all 9 NT models and 2 SegmentNT models
 - Instructions for using the code and pre-trained models
 
-## 1. Environment
+## 1. Environment 🚀
 
 #### 1.1 Download and install [Anaconda](https://www.anaconda.com/download) package manager
 
@@ -31,7 +31,7 @@ git clone --recursive https://github.com/hu-lab-PlantGLM/PlantGLM.git
 cd PlantGLM
 python3 -m pip install -r requirements.txt
 ```
-## 2. Pre-train
+## 2. Pre-train ✒️
 
 If you want to retrain our model, you first need to download [PlantGLM](https://github.com/hu-lab-PlantGLM/PlantGLM.git) locally from Hugging Face🤗.To ensure compatibility with our pre-training scripts, your data needs to be formatted according to the structure in the `/sample/pre-data` directory.
 
@@ -90,7 +90,7 @@ In this script:
 
 
 
-## 3. Fine-tune
+## 3. Fine-tune ✏️
 
 #### 3.1 Classification and Regression
 
