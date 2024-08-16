@@ -93,8 +93,8 @@ In this script:
 ## 3. Fine-tune ✏️
 If you want to fine-tune our model, please take note of the following.
 - **`Model Selection`** : We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
-- **`Preprocessing`** : The sequences need to be converted into overlapping 3-mers. For example, the sequence "ATCGACCT" should be processed into "ATC TCG CGA GAC ACC CCT". This ensures that the model can effectively utilize the sequence information during fine-tuning.
-We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
+- **`Preprocessing`** : The sequences need to be converted into overlapping 3-mers. For example, the sequence `ATCGACCT` should be processed into `ATC TCG CGA GAC ACC CCT`. This ensures that the model can effectively utilize the sequence information during fine-tuning.
+
 #### 3.1 Classification and Regression
 
 For both classification and regression tasks,your dataset should be formatted as a CSV file with the following structure:
