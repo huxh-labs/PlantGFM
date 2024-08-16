@@ -9,9 +9,9 @@ Welcome to the official repository for the paper "PlantGLM: A Genetic Language M
 
 In this repository, you will find the following:
 
-- Inference code for our models
-- Pre-trained weights for all 9 NT models and 2 SegmentNT models
-- Instructions for using the code and pre-trained models
+- Comprehensive guidelines for both pre-training and fine-tuning the models, including preprocessing steps, model selection advice, and handling special cases in your data.
+- Resources and example scripts to assist you in preparing your data and running the models for various tasks.
+
 
 ## 1. Environment 🚀
 
@@ -95,7 +95,7 @@ If you want to fine-tune our model, please take note of the following.🔍
 
 - **`Model Selection`** : We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
 - **`Sequence Preprocessing`** : The sequences need to be converted into overlapping 3-mers. For example, the sequence `"ATCGACCT"` should be processed into `"ATC TCG CGA GAC ACC CCT"`. This ensures that the model can effectively utilize the sequence information during fine-tuning.
-- **`Handling 'N' Bases`** : Although our model was pre-trained on the bases `A`, `T`, `C`, and `G`, a small amount of `'N'` is also allowed.
+- **`Handling 'N' Bases`** : Although our model was pre-trained on the bases `'A'`, `'T'`, `'C'`, and `'G'`, a small amount of `'N'` is also allowed.
 
 #### 3.1 Classification and Regression
 
