@@ -33,7 +33,7 @@ python3 -m pip install -r requirements.txt
 ```
 ## 2. Pre-train
 
-If you want to retrain our model, you first need to download [PlantGLM](https://github.com/hu-lab-PlantGLM/PlantGLM.git) locally.To ensure compatibility with our pre-training scripts, your data needs to be formatted according to the structure in the `/sample/pre-data` directory.
+If you want to retrain our model, you first need to download [PlantGLM](https://github.com/hu-lab-PlantGLM/PlantGLM.git) locally from Hugging Face🤗.To ensure compatibility with our pre-training scripts, your data needs to be formatted according to the structure in the `/sample/pre-data` directory.
 
 ```bash
 python pre_train.py \
@@ -102,7 +102,7 @@ sequence,label
 python fine_tune.py \
     --data_path './sample_data/classification' \
     --model_path /path/to/model \
-    --problem_type 'classification' or 'egression'\
+    --problem_type 'classification' or 'regression'\
     --eval_data /path_to_the_data/dev.csv \
     --max_length 170 \
     --output_dir './output' \
