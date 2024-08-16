@@ -33,7 +33,7 @@ python3 -m pip install -r requirements.txt
 ```
 ## 2. Pre-train ✒️
 
-If you want to retrain our model, you first need to download [PlantGLM](https://github.com/hu-lab-PlantGLM/PlantGLM.git) locally from Hugging Face🤗.To ensure compatibility with our pre-training scripts, your data needs to be formatted according to the structure in the `/sample/pre-data` directory.
+If you want to retrain our model, you first need to download [PlantGLM](https://huggingface.co/hu-lab) locally from Hugging Face🤗.To ensure compatibility with our pre-training scripts, your data needs to be formatted according to the structure in the `/sample/pre-data` directory.
 
 ```bash
 python pre_train.py \
@@ -91,7 +91,7 @@ In this script:
 
 
 ## 3. Fine-tune ✏️
-If you want to retrain our model, you first need to download [PlantGLM](https://github.com/hu-lab-PlantGLM/PlantGLM.git) locally from Hugging Face🤗.We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
+If you want to retrain our model, you first need to download PlantGLM locally from Hugging Face🤗.We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
 #### 3.1 Classification and Regression
 
 Regardless of whether you are working on a classification or regression task, your dataset should be formatted as a CSV file with two columns: sequence and label. Ensure that your data follows this structure, similar to the examples provided in /sample_data/classification and /sample_data/regression, before proceeding with fine-tuning the model using the provided scripts.We recommend prioritizing the use of PlantGLM-A for sequence prediction tasks in coding regions, and PlantGLM-AOZ for sequence prediction tasks in non-coding regions.
