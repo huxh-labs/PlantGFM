@@ -96,7 +96,7 @@ If you want to retrain our model, you first need to download PlantGLM locally fr
 
 For both classification and regression tasks,your dataset should be formatted as a CSV file with the following structure:
  ```csv
-sequence,label
+sequence,labels
 ```
 Ensure that your data follows this structure, similar to the examples provided in `/sample_data/classification` and `/sample_data/regression`, before proceeding with fine-tuning the model using the provided scripts.
 
@@ -153,9 +153,11 @@ In this script:
 
 #### 3.2 Segmentation
 
-```csv
-sequence,label
+For segmentation tasks, your dataset should be formatted as a CSV file with the following structure:
+ ```csv
+sequence,Label_0,Label_1,...Label_N
 ```
+Ensure that your data follows this structure, similar to the examples provided in `/sample_data/segmentation`, before proceeding with fine-tuning the model using the provided scripts.
 
 ```bash
 python segment.py \
