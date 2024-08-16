@@ -56,7 +56,7 @@ python pre_train.py \
 
 In this script:  
 
-以下是你需要的注释：
+
 
 1. **`train_data_path`**: default="./train.txt", Path to the training dataset.
 2. **`dev_data_path`**: default="./dev.txt", Path to the validation dataset.
