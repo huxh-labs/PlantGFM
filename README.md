@@ -91,7 +91,11 @@ In this script:
 
 
 ## 3. Fine-tune ✏️
-If you want to retrain our model, you first need to download PlantGLM locally from Hugging Face🤗.We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
+If you want to fine-tune our model, please take note of the following.
+    - **`Model Selection`**:We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
+    - Pre-trained weights for all 9 NT models and 2 SegmentNT models
+    - Instructions for using the code and pre-trained models
+We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
 #### 3.1 Classification and Regression
 
 For both classification and regression tasks,your dataset should be formatted as a CSV file with the following structure:
@@ -155,7 +159,7 @@ In this script:
 
 For segmentation tasks, your dataset should be formatted as a CSV file with the following structure:
  ```csv
-sequence,Label_0,Label_1,...Label_N
+sequence,Lb_0,Lb_1,...,Lb_N
 ```
 Ensure that your data follows this structure, similar to the examples provided in `/sample_data/segmentation`, before proceeding with fine-tuning the model using the provided scripts.
 
@@ -206,8 +210,6 @@ In this script:
 24. **`save_total_limit`**: default=1, Maximum number of checkpoints to keep; older ones will be deleted.
 25. **`load_best_model_at_end`**: default=True, Whether to load the model with the best evaluation performance at the end of training.
 26. **`metric_for_best_model`**: default="auprc",Metric used to determine the best model, you can choose between `auprc` for precision-recall evaluation or `mcc` for mean accuracy
-
-
 
 
 
