@@ -94,7 +94,11 @@ In this script:
 If you want to retrain our model, you first need to download PlantGLM locally from Hugging Face🤗.We recommend prioritizing the use of [PlantGLM-A](https://huggingface.co/hu-lab/PlantGLM-A) for sequence prediction tasks in coding regions, and [PlantGLM-AOZ](https://huggingface.co/hu-lab/PlantGLM-AOZ) for sequence prediction tasks in non-coding regions to achieve optimal performance.
 #### 3.1 Classification and Regression
 
-For both classification and regression tasks, your dataset should be formatted as a CSV file with two columns: `sequence` and `label`. Ensure that your data follows this structure, similar to the examples provided in `/sample_data/classification` and `/sample_data/regression`, before proceeding with fine-tuning the model using the provided scripts.
+your dataset should be formatted as a CSV file with the following structure:
+```csv
+sequence,label
+```
+Ensure that your data follows this structure, similar to the examples provided in `/sample_data/classification` and `/sample_data/regression`, before proceeding with fine-tuning the model using the provided scripts.
 
 ```bash
 python fine_tune.py \
