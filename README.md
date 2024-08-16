@@ -94,7 +94,7 @@ In this script:
 python fine_tune.py \
     --data_path './sample_data/classification' \
     --model_path /model \
-    --problem_type 'classification' or 'egression'\
+    --problem_type 'classification' or 'regression'\
     --eval_data /path_to_the_data/dev.csv \
     --max_length 170 \
     --output_dir './output' \

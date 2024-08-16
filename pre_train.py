@@ -19,8 +19,8 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 class PathAndControlArguments:
     train_data_path: str = field(default="./train.txt")
     dev_data_path: str = field(default="./dev.txt")
-    tokenizer_path: str = field(default="./tokenizer.json")
-    max_length: int = field(default=512)
+    tokenizer_path: str = field(default="./gpt2")
+    max_length: int = field(default=1024)
     init_model_path: str = field(default="./gpt2")
     checkpoint_path: str = field(default=None)
 
@@ -79,7 +79,8 @@ def pre_training():
                                         n_ctx=path_and_control_args.max_length,
                                         bos_token_id=tokenizer.bos_token_id,
                                         eos_token_id=tokenizer.eos_token_id,)
-    model = AutoModelForCausalLM.from_pretrained(config=config)
+    model = AutoModelForCausalLM.from_pretrained(pretrained_model_name_or_path=path_and_control_args.init_model_path,
+                                                 config=config)
     model.resize_token_embeddings(len(tokenizer))
     
 
