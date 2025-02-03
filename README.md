@@ -27,13 +27,13 @@ conda activate glms
 #### 1.3 Install dependencies
 
 ```bash
-git clone --recursive https://github.com/hu-lab-PlantGLM/PlantGLM.git
-cd PlantGLM
+git clone --recursive https://github.com/hu-lab-PlantGFM/PlantGFM.git
+cd PlantGFM
 python3 -m pip install -r requirements.txt
 ```
 ## 2. Pre-train ✒️
 
-If you want to retrain our model, you first need to download [PlantGLM](https://huggingface.co/hu-lab) locally from Hugging Face🤗.To ensure compatibility with our pre-training scripts, your data needs to be formatted according to the structure in the `/sample/pre-data` directory.
+If you want to retrain our model, you first need to download [PlantGFM](https://huggingface.co/hu-lab) locally from Hugging Face🤗.To ensure compatibility with our pre-training scripts, your data needs to be formatted according to the structure in the `/sample/pre-data` directory.
 
 ```bash
 python pre_train.py \
