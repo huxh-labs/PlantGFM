@@ -41,7 +41,6 @@ python pre_train.py \
     --dev_data_path './sample_data/pre-train/dev.txt' \
     --tokenizer_path '/path/to/model' \
     --max_length 65538 \
-    --init_model_path '/path/to/model' \
     --output_dir './output' \
     --per_device_train_batch_size 3 \
     --per_device_eval_batch_size 3 \
@@ -52,7 +51,15 @@ python pre_train.py \
     --learning_rate 6e-4 \
     --gradient_accumulation_steps 24 \
     --adam_beta1 0.9 \
-    --adam_beta2 0.95
+    --adam_beta2 0.95 \
+    --weight_decay 0.1 \
+    --warmup_steps 1000 \
+    --lr_scheduler_type "cosine" \
+    --save_total_limit 24 \
+    --save_safetensors False \
+    --ddp_find_unused_parameters False \
+    --gradient_checkpointing True \
+    --bf16 True
 
 
 ```
@@ -61,33 +68,31 @@ In this script:
 
 
 
-1. **`train_data_path`**: default="./train.txt", Path to the training dataset.
-2. **`dev_data_path`**: default="./dev.txt", Path to the validation dataset.
-3. **`tokenizer_path`**: default="./gpt2", Path to the pre-trained tokenizer.
-4. **`max_length`**: default=1024, Maximum length of the input sequences; inputs longer than this will be truncated.
-5. **`init_model_path`**: default="./gpt2", Path to the pre-trained model that will be fine-tuned.
-6. **`checkpoint_path`**: default=None, Path to a saved checkpoint, if available, to resume training from a previous state.
-7. **`output_dir`**: default=None, Directory where the output, including the trained model and logs, will be saved.
-8. **`optim`**: default="adamw_hf", Optimization algorithm to be used for training.
-9. **`per_device_train_batch_size`**: default=10, Batch size per device during training.
-10. **`per_device_eval_batch_size`**: default=10, Batch size per device during evaluation.
-11. **`max_steps`**: default=10000, Maximum number of training steps.
-12. **`fp16`**: default=True, Whether to use 16-bit (mixed) precision training instead of 32-bit.
-13. **`bf16`**: default=False, Whether to use bfloat16 precision for training.
-14. **`logging_strategy`**: default="steps", The strategy for logging; can be "steps" or "epoch".
-15. **`logging_steps`**: default=1000, Number of update steps between logging events.
-16. **`save_strategy`**: default="steps", The strategy for saving the model; can be "steps" or "epoch".
-17. **`save_steps`**: default=1000, Number of update steps between model saves.
-18. **`evaluation_strategy`**: default="steps", The strategy for evaluation; can be "steps" or "epoch".
-19. **`eval_steps`**: default=1000, Number of update steps between evaluations.
-20. **`lr_scheduler_type`**: default="cosine", The learning rate scheduler type; can be "linear", "cosine", "polynomial", etc.
-21. **`warmup_steps`**: default=1000, Number of steps used for a linear warmup from 0 to the learning rate.
-22. **`learning_rate`**: default=5e-4, The initial learning rate for training.
-23. **`adam_beta1`**: default=0.9, Beta1 parameter for the AdamW optimizer.
-24. **`adam_beta2`**: default=0.999, Beta2 parameter for the AdamW optimizer.
-25. **`weight_decay`**: default=0.01, Weight decay to apply to the optimizer.
-26. **`gradient_accumulation_steps`**: default=4, Number of steps to accumulate gradients before performing a backward/update pass.
-27. **`save_total_limit`**: default=1, The maximum number of checkpoints to keep; older ones will be deleted.
+There are 20 parameters in total. Here’s the list with their descriptions:
+
+1. **`train_data_path`**: default="./sample_data/pre-train/train.txt", Path to training data.
+2. **`dev_data_path`**: default="./sample_data/pre-train/dev.txt", Path to validation data.
+3. **`tokenizer_path`**: default="/path/to/model", Path to the tokenizer.
+4. **`max_length`**: default=65538, Maximum sequence length.
+5. **`output_dir`**: default="./output", Output directory for model checkpoints.
+6. **`per_device_train_batch_size`**: default=1, Train batch size per device.
+7. **`per_device_eval_batch_size`**: default=1, Eval batch size per device.
+8. **`max_steps`**: default=30000, Maximum number of training steps.
+9. **`logging_steps`**: default=1250, Number of steps between logs.
+10. **`save_steps`**: default=1250, Number of steps between saving checkpoints.
+11. **`eval_steps`**: default=1250, Number of steps between evaluations.
+12. **`learning_rate`**: default=6e-4, Learning rate.
+13. **`gradient_accumulation_steps`**: default=24, Gradient accumulation steps.
+14. **`adam_beta1`**: default=0.9, Adam beta1.
+15. **`adam_beta2`**: default=0.95, Adam beta2.
+16. **`weight_decay`**: default=0.1, Weight decay.
+17. **`warmup_steps`**: default=1000, Warmup steps.
+18. **`lr_scheduler_type`**: default="cosine", LR scheduler type (choices: ["linear", "cosine", "constant"]).
+19. **`save_total_limit`**: default=24, Total number of saved checkpoints.
+20. **`save_safetensors`**: default=False, Whether to save safetensors.
+21. **`ddp_find_unused_parameters`**: default=False, Whether to find unused parameters in DDP.
+22. **`gradient_checkpointing`**: default=True, Enable gradient checkpointing.
+23. **`bf16`**: default=True, Use bf16 precision.
 
 
 
