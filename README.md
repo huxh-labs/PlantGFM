@@ -39,20 +39,21 @@ If you want to retrain our model, you first need to download [PlantGFM](https://
 python pre_train.py \
     --train_data_path './sample_data/pre-train/train.txt' \
     --dev_data_path './sample_data/pre-train/dev.txt' \
-    --tokenizer_path '/path/to/model'\
-    --max_length 65536 \
+    --tokenizer_path '/path/to/model' \
+    --max_length 65538 \
     --init_model_path '/path/to/model' \
     --output_dir './output' \
-    --per_device_train_batch_size 10 \
-    --per_device_eval_batch_size 10 \
-    --max_steps 10000 \
-    --logging_steps 1000 \
-    --save_steps 1000 \
-    --eval_steps 1000 \
-    --learning_rate 5e-4 \
-    --gradient_accumulation_steps 4 \
+    --per_device_train_batch_size 3 \
+    --per_device_eval_batch_size 3 \
+    --max_steps 30000 \
+    --logging_steps 1250 \
+    --save_steps 1250 \
+    --eval_steps 1250 \
+    --learning_rate 6e-4 \
+    --gradient_accumulation_steps 24 \
     --adam_beta1 0.9 \
-    --adam_beta2 0.999 \
+    --adam_beta2 0.95
+
 
 ```
 
