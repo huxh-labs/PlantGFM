@@ -97,8 +97,8 @@ If you want to fine-tune our model, please take note of the following:🔍
 
 
 - **`Sequence Preprocessing`**: The sequences need to be converted into overlapping 3-mers. For example, the sequence `"ATCGACCT"` should be processed into `"ATC TCG CGA GAC ACC CCT"`. This ensures that the model can effectively utilize the sequence information during fine-tuning by capturing contextual relationships between overlapping triplets of nucleotides.
-- **`Handling 'N' Bases`** : Although our model was pre-trained on the bases `'A'`, `'T'`, `'C'`, and `'G'`, a small amount of `'N'` is also allowed.
-
+- **`Handling  Other Bases`** :  Although our model was pre-trained on the bases 'A', 'T', 'C', 'G', and 'N', it can also handle a small amount of other characters.
+- 
 #### 3.1 Classification and Regression
 
 For both classification and regression tasks,your dataset should be formatted as a CSV file with the following structure:
