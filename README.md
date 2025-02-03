@@ -40,7 +40,7 @@ python pre_train.py \
     --train_data_path './sample_data/pre-train/train.txt' \
     --dev_data_path './sample_data/pre-train/dev.txt' \
     --tokenizer_path '/path/to/model'\
-    --max_length 1024 \
+    --max_length 65536 \
     --init_model_path '/path/to/model' \
     --output_dir './output' \
     --per_device_train_batch_size 10 \
