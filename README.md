@@ -154,7 +154,7 @@ In this script:
 11. **`save_strategy`**: default='epoch', choices=['steps', 'epoch'], How frequently to save model checkpoints ('steps' or 'epoch').
 12. **`save_total_limit`**: default=1, Maximum number of checkpoints to save.
 13. **`weight_decay`**: default=0.001, Weight decay used to prevent overfitting.
-14. **`task_type`**: default=None, Type of task ('regression' or 'classification').
+14. **`task_type`**: default=None, Type of task ('segmentation'、'regression' or 'classification').
 
 
 
