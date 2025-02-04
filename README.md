@@ -111,7 +111,7 @@ sequence,labels
 Ensure that your data follows this structure, similar to the examples provided in `/sample_data/classification` and `/sample_data/regression`, before proceeding with fine-tuning the model using the provided scripts.
 
 ```bash
-python finetune.py \
+python regression_or_classification.py \
   --data_name "./sample_data/pre-train" \
   --output_dir "./output" \
   --model_name_or_path "/path/to/model" \
@@ -126,7 +126,7 @@ python finetune.py \
   --save_total_limit 3 \
   --weight_decay 0.01 \
   --metric_for_best_model "r2" \
-  --task_type "classification"
+  --task_type "regression"
 
 ```
 
