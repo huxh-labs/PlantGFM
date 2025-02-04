@@ -39,7 +39,7 @@ If you want to retrain our model, you first need to download [PlantGFM](https://
 python pre_train.py \
     --train_data_path './sample_data/pre-train/train.txt' \
     --dev_data_path './sample_data/pre-train/dev.txt' \
-    --tokenizer_path './tokenizer' \
+    --tokenizer_path './tokenizer.json' \
     --max_length 65538 \
     --init_model_path '/path/to/model'
     --output_dir './output' \
