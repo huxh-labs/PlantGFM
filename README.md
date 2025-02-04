@@ -132,33 +132,21 @@ python regression_or_classification.py \
 
 In this script:  
 
-1. **`data_name`**: default=None, The name or identifier for the dataset to be used for training, validation, and testing. This can be a custom dataset or a path to a specific dataset.
+1. **`data_name`**: default=None, The name or path of the dataset for training, validation, and testing.
+2. **`output_dir`**: default=None, Directory to save model checkpoints and logs.
+3. **`model_name_or_path`**: default=None, Path to the pre-trained model or model name from Hugging Face Model Hub.
+4. **`tokenizer_path`**: default=None, Path to the tokenizer used for text preprocessing.
+5. **`max_length`**: default=172, Maximum sequence length for tokenization. Sequences longer than this are truncated.
+6. **`batch_size`**: default=96, Batch size for training and evaluation.
+7. **`epochs`**: default=20, Number of training epochs (full passes through the dataset).
+8. **`learning_rate`**: default=1e-4, Learning rate for training.
+9. **`logging_strategy`**: default='epoch', choices=['steps', 'epoch'], How frequently to log training progress ('steps' or 'epoch').
+10. **`evaluation_strategy`**: default='epoch', choices=['steps', 'epoch'], How frequently to evaluate the model ('steps' or 'epoch').
+11. **`save_strategy`**: default='epoch', choices=['steps', 'epoch'], How frequently to save model checkpoints ('steps' or 'epoch').
+12. **`save_total_limit`**: default=1, Maximum number of checkpoints to save.
+13. **`weight_decay`**: default=0.001, Weight decay used to prevent overfitting.
+14. **`task_type`**: default=None, Type of task ('regression' or 'classification').
 
-2. **`output_dir`**: default=None, The directory where the model and logs will be saved after training. This should be a path to a folder where the model checkpoints and log files will be stored.
-
-3. **`model_name_or_path`**: default=None, The path to the pre-trained model that will be fine-tuned or the name of a model from the Hugging Face Model Hub. This model serves as the initial model before fine-tuning.
-
-4. **`tokenizer_path`**: default=None, The path to the tokenizer used for text preprocessing. This can be a local directory or the name of a tokenizer from the Hugging Face Model Hub.
-
-5. **`max_length`**: default=172, The maximum sequence length for tokenization. This defines the maximum number of tokens for each input sequence. Sequences longer than this length will be truncated, and shorter ones will be padded.
-
-6. **`batch_size`**: default=96, The batch size for training and evaluation. This defines the number of samples processed together in one forward/backward pass.
-
-7. **`epochs`**: default=20, The number of epochs (full passes through the dataset) for training. This is the number of times the model will iterate over the entire training dataset.
-
-8. **`learning_rate`**: default=1e-4, The learning rate for training. It controls how much the model's weights are adjusted with each step during training.
-
-9. **`logging_strategy`**: default='epoch', choices=['steps', 'epoch'], The strategy for logging training progress. It can be either by 'steps' (after a fixed number of steps) or 'epoch' (after each full pass through the dataset).
-
-10. **`evaluation_strategy`**: default='epoch', choices=['steps', 'epoch'], The strategy for evaluating the model. Similar to logging, it can either evaluate the model after 'steps' (a fixed number of steps) or after each 'epoch' (full pass through the dataset).
-
-11. **`save_strategy`**: default='epoch', choices=['steps', 'epoch'], The strategy for saving model checkpoints. It can be either 'steps' (after a fixed number of steps) or 'epoch' (after each full pass through the dataset).
-
-12. **`save_total_limit`**: default=1, The maximum number of model checkpoints to save. If set to a value greater than 1, older checkpoints will be deleted to maintain this limit.
-
-13. **`weight_decay`**: default=0.001, The weight decay for optimization. It is used to prevent overfitting by adding a penalty to the loss function based on the size of the model parameters.
-
-14. **`task_type`**: default=None, The type of task to be performed. It can either be 'regression' for regression tasks or 'classification' for classification tasks. This will determine how the model's output is processed and evaluated.
 
 
 
