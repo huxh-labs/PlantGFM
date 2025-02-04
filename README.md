@@ -102,12 +102,21 @@ If you want to fine-tune our model, please take note of the following:🔍
 
 -**`Handling  Other Bases`** :  Although our model was pre-trained on the bases 'A', 'T', 'C', 'G', and 'N', it can also handle a small amount of other characters.
 
-#### 3.1 Classification and Regression
+####  Classification and Regression
 
 For both classification and regression tasks,your dataset should be formatted as a CSV file with the following structure:
  ```csv
 sequence,labels
 ```
+
+#### Segmentation
+
+For segmentation tasks, your dataset should be formatted as a TSV file with the following structure:
+ ```tsv
+sequence    gene_0    gene_1    ...    gene_65536
+```
+Ensure that your data follows this structure, similar to the examples provided in `/sample_data/segmentation`, before proceeding with fine-tuning the model using the provided scripts.
+
 Ensure that your data follows this structure, similar to the examples provided in `/sample_data/classification` and `/sample_data/regression`, before proceeding with fine-tuning the model using the provided scripts.
 
 ```bash
@@ -146,6 +155,8 @@ In this script:
 12. **`save_total_limit`**: default=1, Maximum number of checkpoints to save.
 13. **`weight_decay`**: default=0.001, Weight decay used to prevent overfitting.
 14. **`task_type`**: default=None, Type of task ('regression' or 'classification').
+
+
 
 
 
