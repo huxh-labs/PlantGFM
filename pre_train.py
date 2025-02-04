@@ -3,8 +3,8 @@ import torch
 import warnings
 import argparse
 from datasets import load_dataset, config
-from plantglm.modeling_plantglm import PlantGLMForCausalLM
-from plantglm.configuration_plantglm import PlantGLMConfig
+from plantgfm.modeling_plantgfm import PlantGFMForCausalLM
+from plantgfm.configuration_plantgfm import PlantGFMConfig
 from transformers import Trainer, TrainingArguments, PreTrainedTokenizerFast
 
 
@@ -19,6 +19,7 @@ def parse_args():
     parser.add_argument('--train_data_path', type=str, default='./sample_data/pre-train/train.txt', help="Path to training data")
     parser.add_argument('--dev_data_path', type=str, default='./sample_data/pre-train/dev.txt', help="Path to validation data")
     parser.add_argument('--tokenizer_path', type=str, default='/path/to/model', help="Path to the tokenizer")
+    parser.add_argument('--init_model_path', type=str, default='/path/to/initial/model', help="Path to the initial model")
     parser.add_argument('--max_length', type=int, default=65538, help="Maximum sequence length")
     parser.add_argument('--output_dir', type=str, default='./output', help="Output directory for model checkpoints")
     parser.add_argument('--per_device_train_batch_size', type=int, default=1, help="Train batch size per device")
@@ -45,13 +46,13 @@ def parse_args():
 
 args = parse_args()
 
-
 max_length = args.max_length
-model_name_or_path = args.init_model_path
+model_name_or_path = args.init_model_path  
 tokenizer_path = args.tokenizer_path
 
 
-config = PlantGLMConfig.from_pretrained(model_name_or_path)
+
+config = PlantGFMConfig.from_pretrained(model_name_or_path)
 tokenizer = PreTrainedTokenizerFast.from_pretrained(tokenizer_path)
 
 def tokenize_function(examples):
@@ -77,7 +78,8 @@ tokenized_datasets = datasets.map(
         load_from_cache_file=True,
 )
 
-model = PlantGLMForCausalLM.from_pretrained(model_name_or_path, config=config)
+model = PlantGFMForCausalLM.from_pretrained(model_name_or_path, config=config)
+
 
 
 training_args = TrainingArguments(
