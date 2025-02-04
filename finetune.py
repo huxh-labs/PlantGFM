@@ -141,7 +141,7 @@ def parse_args():
     # Optional arguments with defaults
     parser.add_argument('--max_length', type=int, default=172, help="Maximum sequence length for tokenization.")
     parser.add_argument('--batch_size', type=int, default=96, help="Batch size for training and evaluation.")
-    parser.add_argument('--epochs', type=int, default=50, help="Number of epochs for training.")
+    parser.add_argument('--epochs', type=int, default=20, help="Number of epochs for training.")
     parser.add_argument('--learning_rate', type=float, default=1e-4, help="Learning rate for training.")
     parser.add_argument('--logging_strategy', type=str, default='epoch', choices=['steps', 'epoch'], help="Strategy for logging.")
     parser.add_argument('--evaluation_strategy', type=str, default='epoch', choices=['steps', 'epoch'], help="Strategy for evaluation.")
