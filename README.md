@@ -111,11 +111,11 @@ sequence,labels
 Ensure that your data follows this structure, similar to the examples provided in `/sample_data/classification` and `/sample_data/regression`, before proceeding with fine-tuning the model using the provided scripts.
 
 ```bash
-python finetune.py \
+python regression_or_classification.py \
   --data_name "./sample_data/pre-train" \
   --output_dir "./output" \
   --model_name_or_path "/path/to/model" \
-  --tokenizer_path "/path/to/model" \
+  --tokenizer_path "./tokenizer.json" \
   --max_length 172 \
   --batch_size 32 \
   --epochs 10 \
@@ -126,37 +126,40 @@ python finetune.py \
   --save_total_limit 3 \
   --weight_decay 0.01 \
   --metric_for_best_model "r2" \
-  --task_type "classification"
+  --task_type "regression"
 
 ```
 
 In this script:  
 
-1. **`data_path`**: default=None,Path to the fine-tuning dataset.
-2. **`model_path`**: default=None,Path to the pre-trained model.
-3. **`checkpoint_path`**: default=None, Path to a saved checkpoint, if available, to resume training from a previous state.
-4. **`max_length`**: default=1000, Maximum length of the input sequences. Inputs longer than this will be truncated.
-6. **`run_name`**: default="run", Name of the training run, useful for organizing and distinguishing different experiments.
-7. **`output_dir`**: default="./output", Directory where the output, including the trained model and logs, will be saved.
-8. **`optim`**: default="adamw_hf",default is AdamW as implemented by Hugging Face.
-9. **`per_device_train_batch_size`**: default=1, Batch size to use per device (e.g., per GPU) during training.
-10. **`per_device_eval_batch_size`**: default=1, Batch size to use per device during evaluation.
-11. **`num_train_epochs`**: default=1, Number of epochs to train the model.
-12. **`fp16`**: default=False, Whether to use 16-bit floating point precision (FP16) for training to save memory and speed up computation.
-13. **`bf16`**: default=False, Whether to use BFloat16 precision for training, similar to FP16 but with a larger dynamic range.
-14. **`logging_strategy`**: default="epoch", Strategy for logging training information; options include `epoch` and `steps`.
-15. **`save_strategy`**: default="epoch", Strategy for saving the model checkpoints; can be `epoch` or `steps`.
-16. **`eval_strategy`**: default="epoch", Strategy for evaluating the model; options include `epoch` and `steps`.
-17. **`lr_scheduler_type`**: default="linear", Type of learning rate scheduler to use.
-18. **`warmup_steps`**: default=100, Number of steps for the learning rate warmup phase.
-19. **`learning_rate`**: default=5e-5, Initial learning rate for the optimizer.
-20. **`adam_beta1`**: default=0.9, The beta1 parameter for the Adam optimizer, affecting the first moment estimate.
-21. **`adam_beta2`**: default=0.999, The beta2 parameter for the Adam optimizer, affecting the second moment estimate.
-22. **`weight_decay`**: default=0.01, Weight decay rate for regularization to prevent overfitting.
-23. **`gradient_accumulation_steps`**: default=1, Number of steps to accumulate gradients before updating the model parameters.
-24. **`save_total_limit`**: default=1, Maximum number of checkpoints to keep; older ones will be deleted.
-25. **`load_best_model_at_end`**: default=True, Whether to load the model with the best evaluation performance at the end of training.
-26. **`metric_for_best_model`**: default="r2", Metric used to determine the best model; for regression tasks, this could be `r2`, and for classification, options include `acc`, etc.
+1. **`data_name`**: default=None, The name or identifier for the dataset to be used for training, validation, and testing. This can be a custom dataset or a path to a specific dataset.
+
+2. **`output_dir`**: default=None, The directory where the model and logs will be saved after training. This should be a path to a folder where the model checkpoints and log files will be stored.
+
+3. **`model_name_or_path`**: default=None, The path to the pre-trained model that will be fine-tuned or the name of a model from the Hugging Face Model Hub. This model serves as the initial model before fine-tuning.
+
+4. **`tokenizer_path`**: default=None, The path to the tokenizer used for text preprocessing. This can be a local directory or the name of a tokenizer from the Hugging Face Model Hub.
+
+5. **`max_length`**: default=172, The maximum sequence length for tokenization. This defines the maximum number of tokens for each input sequence. Sequences longer than this length will be truncated, and shorter ones will be padded.
+
+6. **`batch_size`**: default=96, The batch size for training and evaluation. This defines the number of samples processed together in one forward/backward pass.
+
+7. **`epochs`**: default=20, The number of epochs (full passes through the dataset) for training. This is the number of times the model will iterate over the entire training dataset.
+
+8. **`learning_rate`**: default=1e-4, The learning rate for training. It controls how much the model's weights are adjusted with each step during training.
+
+9. **`logging_strategy`**: default='epoch', choices=['steps', 'epoch'], The strategy for logging training progress. It can be either by 'steps' (after a fixed number of steps) or 'epoch' (after each full pass through the dataset).
+
+10. **`evaluation_strategy`**: default='epoch', choices=['steps', 'epoch'], The strategy for evaluating the model. Similar to logging, it can either evaluate the model after 'steps' (a fixed number of steps) or after each 'epoch' (full pass through the dataset).
+
+11. **`save_strategy`**: default='epoch', choices=['steps', 'epoch'], The strategy for saving model checkpoints. It can be either 'steps' (after a fixed number of steps) or 'epoch' (after each full pass through the dataset).
+
+12. **`save_total_limit`**: default=1, The maximum number of model checkpoints to save. If set to a value greater than 1, older checkpoints will be deleted to maintain this limit.
+
+13. **`weight_decay`**: default=0.001, The weight decay for optimization. It is used to prevent overfitting by adding a penalty to the loss function based on the size of the model parameters.
+
+14. **`task_type`**: default=None, The type of task to be performed. It can either be 'regression' for regression tasks or 'classification' for classification tasks. This will determine how the model's output is processed and evaluated.
+
 
 
 #### 3.2 Segmentation
