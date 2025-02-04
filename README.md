@@ -111,22 +111,22 @@ sequence,labels
 Ensure that your data follows this structure, similar to the examples provided in `/sample_data/classification` and `/sample_data/regression`, before proceeding with fine-tuning the model using the provided scripts.
 
 ```bash
-python regression_or_classification.py \
-  --data_name "./sample_data/pre-train" \
-  --output_dir "./output" \
-  --model_name_or_path "/path/to/model" \
-  --tokenizer_path "./tokenizer.json" \
+python fine_tune.py
+  --data_name '/sample_data/regression'
+  --output_dir '/output' \
+  --model_name_or_path 'path/to/model' \
+  --tokenizer_path './tokenizer.json' \
   --max_length 172 \
   --batch_size 32 \
   --epochs 10 \
   --learning_rate 1e-4 \
-  --logging_strategy "epoch" \
-  --evaluation_strategy "epoch" \
-  --save_strategy "epoch" \
+  --logging_strategy 'epoch' \
+  --evaluation_strategy 'epoch' \
+  --save_strategy 'epoch' \
   --save_total_limit 3 \
   --weight_decay 0.01 \
-  --metric_for_best_model "r2" \
-  --task_type "regression"
+  --metric_for_best_model 'r2' \
+  --task_type 'regression'
 
 ```
 
@@ -148,63 +148,6 @@ In this script:
 14. **`task_type`**: default=None, Type of task ('regression' or 'classification').
 
 
-
-
-#### 3.2 Segmentation
-
-For segmentation tasks, your dataset should be formatted as a TSV file with the following structure:
- ```tsv
-sequence    gene_0    gene_1    ...    gene_65536
-```
-Ensure that your data follows this structure, similar to the examples provided in `/sample_data/segmentation`, before proceeding with fine-tuning the model using the provided scripts.
-
-```bash
-python segment.py \
-    --data_path './sample_data/pre-train' \
-    --model_path /path/to/model \
-    --max_length 1000 \
-    --output_dir './output' \
-    --per_device_train_batch_size 8 \
-    --per_device_eval_batch_size 8 \
-    --num_train_epochs 10 \
-    --learning_rate 5e-5 \
-    --bf16 True \
-    --metric_for_best_model 'auprc' \
-    --save_strategy epoch \
-    --eval_strategy epoch \
-    --adam_beta1 0.9 \
-    --adam_beta2 0.999 \
-
-```
-
-In this script:  
-
-1. **`data_path`**: default=None,Path to the fine-tuning dataset.
-2. **`model_path`**: default=None,Path to the pre-trained model.
-3. **`checkpoint_path`**: default=None, Path to a saved checkpoint, if available, to resume training from a previous state.
-4. **`problem_type`**: default="regression", Determines the type of task; it can be `regression`, `classification`.
-5. **`max_length`**: default=1000, Maximum length of the input sequences. Inputs longer than this will be truncated.
-6. **`run_name`**: default="run", Name of the training run, useful for organizing and distinguishing different experiments.
-7. **`output_dir`**: default="./output", Directory where the output, including the trained model and logs, will be saved.
-8. **`optim`**: default="adamw_hf",default is AdamW as implemented by Hugging Face.
-9. **`per_device_train_batch_size`**: default=1, Batch size to use per device (e.g., per GPU) during training.
-10. **`per_device_eval_batch_size`**: default=1, Batch size to use per device during evaluation.
-11. **`num_train_epochs`**: default=1, Number of epochs to train the model.
-12. **`fp16`**: default=False, Whether to use 16-bit floating point precision (FP16) for training to save memory and speed up computation.
-13. **`bf16`**: default=False, Whether to use BFloat16 precision for training, similar to FP16 but with a larger dynamic range.
-14. **`logging_strategy`**: default="epoch", Strategy for logging training information; options include `epoch` and `steps`.
-15. **`save_strategy`**: default="epoch", Strategy for saving the model checkpoints; can be `epoch` or `steps`.
-16. **`eval_strategy`**: default="epoch", Strategy for evaluating the model; options include `epoch` and `steps`.
-17. **`lr_scheduler_type`**: default="linear", Type of learning rate scheduler to use.
-18. **`warmup_steps`**: default=100, Number of steps for the learning rate warmup phase.
-19. **`learning_rate`**: default=5e-5, Initial learning rate for the optimizer.
-20. **`adam_beta1`**: default=0.9, The beta1 parameter for the Adam optimizer, affecting the first moment estimate.
-21. **`adam_beta2`**: default=0.999, The beta2 parameter for the Adam optimizer, affecting the second moment estimate.
-22. **`weight_decay`**: default=0.01, Weight decay rate for regularization to prevent overfitting.
-23. **`gradient_accumulation_steps`**: default=1, Number of steps to accumulate gradients before updating the model parameters.
-24. **`save_total_limit`**: default=1, Maximum number of checkpoints to keep; older ones will be deleted.
-25. **`load_best_model_at_end`**: default=True, Whether to load the model with the best evaluation performance at the end of training.
-26. **`metric_for_best_model`**: default="auprc",Metric used to determine the best model, you can choose between `auprc` for precision-recall evaluation or `mcc` for mean accuracy
 
 
 
