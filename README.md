@@ -152,9 +152,9 @@ In this script:
 
 #### 3.2 Segmentation
 
-For segmentation tasks, your dataset should be formatted as a CSV file with the following structure:
- ```csv
-sequence,Lb_0,Lb_1,...,Lb_N
+For segmentation tasks, your dataset should be formatted as a TSV file with the following structure:
+ ```tsv
+sequence,gene_0,gene_1,...,gene_65536
 ```
 Ensure that your data follows this structure, similar to the examples provided in `/sample_data/segmentation`, before proceeding with fine-tuning the model using the provided scripts.
 
