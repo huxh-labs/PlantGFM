@@ -1,11 +1,11 @@
-# PlantGLM
+# PlantGFM
 
 [![Python Version](https://img.shields.io/badge/python-3.8-blue.svg)](https://docs.python.org/3.8/library/index.html)
 [![PyTorch Version](https://img.shields.io/badge/torch-2.0-red.svg)](https://pytorch.org/get-started/locally/)
 [![Transformers Version](https://img.shields.io/badge/transformers-4.44-orange.svg)](https://huggingface.co/transformers/)
 [![Accelerate Version](https://img.shields.io/badge/accelerate-0.33-yellow.svg)](https://huggingface.co/docs/accelerate/)
 
-Welcome to the official repository for the paper "PlantGLM: A Genetic Language Model for Plant Genomics".
+Welcome to the official repository for the paper "PlantGFM: A Genetic Foundation Model for Discovery and Creation of Plant Genes".
 
 In this repository, you will find the following:
 
@@ -20,8 +20,8 @@ In this repository, you will find the following:
 #### 1.2 Create environment 
 
 ```bash
-conda create -n glms python=3.8
-conda activate glms
+conda create -n gfms python=3.8
+conda activate gfms
 ```
 
 #### 1.3 Install dependencies
@@ -39,7 +39,7 @@ If you want to retrain our model, you first need to download [PlantGFM](https://
 python pre_train.py \
     --train_data_path './sample_data/pre-train/train.txt' \
     --dev_data_path './sample_data/pre-train/dev.txt' \
-    --tokenizer_path './tokenizer' \
+    --tokenizer_path './tokenizer.json' \
     --max_length 65538 \
     --init_model_path '/path/to/model'
     --output_dir './output' \
@@ -70,7 +70,7 @@ In this script:
 1. **`train_data_path`**: default="./sample_data/pre-train/train.txt", Path to training data.
 2. **`dev_data_path`**: default="./sample_data/pre-train/dev.txt", Path to validation data.
 3. **`tokenizer_path`**: default="/path/to/model", Path to the tokenizer.
-4. **`max_length`**: default=65538, Maximum sequence length.
+4. **`max_length`**: default=65538, Maximum length of input sequences, increased by 2 from the previous default value.
 5. **`output_dir`**: default="./output", Output directory for model checkpoints.
 6. **`per_device_train_batch_size`**: default=1, Train batch size per device.
 7. **`per_device_eval_batch_size`**: default=1, Eval batch size per device.
@@ -90,6 +90,7 @@ In this script:
 21. **`ddp_find_unused_parameters`**: default=False, Whether to find unused parameters in DDP.
 22. **`gradient_checkpointing`**: default=True, Enable gradient checkpointing.
 23. **`bf16`**: default=True, Use bf16 precision.
+24. **`init_model_path`**: default="/path/to/model", Path to the pre-trained model .
 
 
 
@@ -97,8 +98,9 @@ In this script:
 If you want to fine-tune our model, please take note of the following:🔍
 
 
--**Sequence Preprocessing:** The sequences need to be converted into individual nucleotides. For example, the sequence "ATCGACCT" should be processed into "A T C G A C C T". This ensures that the model can effectively utilize the sequence information during fine-tuning by capturing relationships between single nucleotides.
-- **`Handling  Other Bases`** :  Although our model was pre-trained on the bases 'A', 'T', 'C', 'G', and 'N', it can also handle a small amount of other characters.
+-**`Sequence Preprocessing`**: The sequences need to be converted into individual nucleotides. For example, the sequence "ATCGACCT" should be processed into "A T C G A C C T". between single nucleotides.
+
+-**`Handling  Other Bases`** :  Although our model was pre-trained on the bases 'A', 'T', 'C', 'G', and 'N', it can also handle a small amount of other characters.
 
 #### 3.1 Classification and Regression
 
