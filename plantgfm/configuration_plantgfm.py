@@ -2,8 +2,8 @@ from transformers import PretrainedConfig
 import json
 
 
-class PlantGLMConfig(PretrainedConfig):
-    model_type = "plantglm"
+class PlantGFMConfig(PretrainedConfig):
+    model_type = "plantgfm"
     def __init__(
         self,
         vocab_size=24,

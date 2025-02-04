@@ -4,9 +4,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 from typing import Optional
 from transformers import PreTrainedModel, PretrainedConfig
-from .modeling_plantglm import PlantGLMForCausalLM
+from .modeling_plantgfm import PlantGFMForCausalLM
 
-class SegmentGLMConfig(PretrainedConfig):
+class SegmentGFMConfig(PretrainedConfig):
     model_type = "segmentglm"
     def __init__(
         self,
@@ -57,11 +57,11 @@ class SegmentGLMConfig(PretrainedConfig):
             **kwargs
         )
 
-class PlantGLMEmbd(nn.Module):
+class PlantGFMEmbd(nn.Module):
     def __init__(self, config):
         super().__init__()
         self.config = config
-        glm_model = PlantGLMForCausalLM.from_pretrained(self.config.pre_trained_path)
+        glm_model = PlantGFMForCausalLM.from_pretrained(self.config.pre_trained_path)
         self.glm_decoder = glm_model.get_decoder()
 
     def forward(self, input_ids):
@@ -183,8 +183,8 @@ class CombinedLoss(nn.Module):
         combined_loss = self.bce_weight * bce + self.iou_weight * iou
         return combined_loss
 
-class SegmentGLMModel(PreTrainedModel):
-    config_class = SegmentGLMConfig
+class SegmentGFMModel(PreTrainedModel):
+    config_class = SegmentGFMConfig
     _no_split_modules = ["DilatedUNetHead"]
     supports_gradient_checkpointing = True
 
@@ -192,7 +192,7 @@ class SegmentGLMModel(PreTrainedModel):
         super().__init__(config)
 
         self.config = config
-        self.glm_embd = PlantGLMEmbd(config=config)
+        self.glm_embd = PlantGFMEmbd(config=config)
         self.unet_head = DilatedUNetHead(
             self.config.unet_embd_dim,
             self.config.unet_kernel_size,

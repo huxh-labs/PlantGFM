@@ -4,7 +4,7 @@ import math
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from .configuration_plantglm import PlantGLMConfig
+from .configuration_plantgfm import PlantGFMConfig
 from transformers import PreTrainedModel
 from typing import Optional, Tuple, Union
 from transformers.modeling_outputs import CausalLMOutput, SequenceClassifierOutput, BaseModelOutputWithNoAttention
@@ -214,7 +214,7 @@ class HyenaOperator(nn.Module):
         y = self.out_proj(y)
         return y
 
-class PlantGLMRMSNorm(nn.Module):
+class PlantGFMRMSNorm(nn.Module):
     def __init__(self, hidden_size, eps=1e-6):
         """
         From Llama RMSNorm
@@ -230,7 +230,7 @@ class PlantGLMRMSNorm(nn.Module):
 
         return (self.weight * hidden_states).to(input_dtype)
 
-class PlantGLMSwiGLU(nn.Module):
+class PlantGFMSwiGLU(nn.Module):
 
     def __init__(self, config):
         """
@@ -249,7 +249,7 @@ class PlantGLMSwiGLU(nn.Module):
 
         return y
 
-class PlantGLMBlock(nn.Module):
+class PlantGFMBlock(nn.Module):
 
     def __init__(self, config):
         """
@@ -258,10 +258,10 @@ class PlantGLMBlock(nn.Module):
         
         super().__init__()
 
-        self.input_layernorm = PlantGLMRMSNorm(hidden_size=config.d_model, eps=config.rms_norm_epsilon)
+        self.input_layernorm = PlantGFMRMSNorm(hidden_size=config.d_model, eps=config.rms_norm_epsilon)
         self.mixer = HyenaOperator(config)
-        self.post_attention_layernorm = PlantGLMRMSNorm(hidden_size=config.d_model, eps=config.rms_norm_epsilon)
-        self.mlp = PlantGLMSwiGLU(config)
+        self.post_attention_layernorm = PlantGFMRMSNorm(hidden_size=config.d_model, eps=config.rms_norm_epsilon)
+        self.mlp = PlantGFMSwiGLU(config)
 
     def forward(self, hidden_states):
 
@@ -278,7 +278,7 @@ class PlantGLMBlock(nn.Module):
         return hidden_states
 
 
-class PlantGLMEmbeddings(nn.Module):
+class PlantGFMEmbeddings(nn.Module):
 
     def __init__(self, config, padding_idx=None):
         """
@@ -299,17 +299,17 @@ class PlantGLMEmbeddings(nn.Module):
         embeddings = self.word_embeddings(input_ids)
         return embeddings
 
-class PlantGLMBackbone(nn.Module):
+class PlantGFMBackbone(nn.Module):
 
     def __init__(self, config) -> None:
         super().__init__()
         # note max_position_embeddings is 0 for Hyena, and therefore isn't used
-        self.embeddings = PlantGLMEmbeddings(config)
+        self.embeddings = PlantGFMEmbeddings(config)
         self.dropout = nn.Dropout(config.embed_dropout)
 
-        self.layers = nn.ModuleList([PlantGLMBlock(config) for _ in range(config.n_layer)])
+        self.layers = nn.ModuleList([PlantGFMBlock(config) for _ in range(config.n_layer)])
 
-        self.rn_f = PlantGLMRMSNorm(hidden_size=config.d_model, eps=config.rms_norm_epsilon)
+        self.rn_f = PlantGFMRMSNorm(hidden_size=config.d_model, eps=config.rms_norm_epsilon)
         self.gradient_checkpointing = False
 
     def forward(self, input_ids, inputs_embeds=None, output_hidden_states=False):
@@ -336,11 +336,11 @@ class PlantGLMBackbone(nn.Module):
         return hidden_states, all_hidden_states
 
 
-class PlantGLMPreTrainedModel(PreTrainedModel):
-    config_class = PlantGLMConfig
+class PlantGFMPreTrainedModel(PreTrainedModel):
+    config_class = PlantGFMConfig
     base_model_prefix = "model"
     supports_gradient_checkpointing = True
-    _no_split_modules = ["PlantGLMBlock"]
+    _no_split_modules = ["PlantGFMBlock"]
     _skip_keys_device_placement = "past_key_values"
     _keys_to_ignore_on_load_missing = [r"freq"] 
 
@@ -353,11 +353,11 @@ class PlantGLMPreTrainedModel(PreTrainedModel):
             nn.init.normal_(module.weight, std=initializer_range)
 
 
-class PlantGLMModel(PlantGLMPreTrainedModel):
+class PlantGFMModel(PlantGFMPreTrainedModel):
     def __init__(self, config, **kwargs) -> None:
         super().__init__(config, **kwargs)
 
-        self.backbone = PlantGLMBackbone(config)
+        self.backbone = PlantGFMBackbone(config)
         self.config = config
 
         # Initialize weights and apply final processing
@@ -379,11 +379,11 @@ class PlantGLMModel(PlantGLMPreTrainedModel):
             return hidden_states
 
 
-class PlantGLMForCausalLM(PlantGLMPreTrainedModel):
+class PlantGFMForCausalLM(PlantGFMPreTrainedModel):
 
     def __init__(self, config, **kwargs):
         super().__init__(config, **kwargs)
-        self.glm = PlantGLMModel(config)
+        self.glm = PlantGFMModel(config)
         vocab_size = config.vocab_size
         if vocab_size % config.pad_vocab_size_multiple != 0:
             vocab_size += config.pad_vocab_size_multiple - (vocab_size % config.pad_vocab_size_multiple)
@@ -472,11 +472,11 @@ class PlantGLMForCausalLM(PlantGLMPreTrainedModel):
         return {"input_ids": input_ids}
 
 
-class PlantGLMForSequenceClassification(PlantGLMPreTrainedModel):
+class PlantGFMForSequenceClassification(PlantGFMPreTrainedModel):
     def __init__(self, config, **kwargs):
         super().__init__(config, **kwargs)
         self.num_labels = kwargs.get("num_labels", config.num_labels)
-        self.glm = PlantGLMModel(config)
+        self.glm = PlantGFMModel(config)
         self.score = nn.Linear(config.d_model, self.num_labels, bias=False)
 
         # Initialize weights and apply final processing
