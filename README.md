@@ -99,6 +99,7 @@ If you want to fine-tune our model, please take note of the following:🔍
 
 
 -**`Sequence Preprocessing`**: The sequences need to be converted into individual nucleotides. For example, the sequence "ATCGACCT" should be processed into "A T C G A C C T". between single nucleotides.
+
 -**`Handling  Other Bases`** :  Although our model was pre-trained on the bases 'A', 'T', 'C', 'G', and 'N', it can also handle a small amount of other characters.
 
 #### 3.1 Classification and Regression
