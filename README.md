@@ -70,7 +70,7 @@ In this script:
 1. **`train_data_path`**: default="./sample_data/pre-train/train.txt", Path to training data.
 2. **`dev_data_path`**: default="./sample_data/pre-train/dev.txt", Path to validation data.
 3. **`tokenizer_path`**: default="/path/to/model", Path to the tokenizer.
-4. **`max_length`**: default=65538, Maximum sequence length.
+4. **`max_length`**: default=65538, Maximum length of input sequences, increased by 2 from the previous default value.
 5. **`output_dir`**: default="./output", Output directory for model checkpoints.
 6. **`per_device_train_batch_size`**: default=1, Train batch size per device.
 7. **`per_device_eval_batch_size`**: default=1, Eval batch size per device.
