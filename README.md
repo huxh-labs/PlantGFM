@@ -90,6 +90,7 @@ In this script:
 21. **`ddp_find_unused_parameters`**: default=False, Whether to find unused parameters in DDP.
 22. **`gradient_checkpointing`**: default=True, Enable gradient checkpointing.
 23. **`bf16`**: default=True, Use bf16 precision.
+24. **`init_model_path`**: default="/path/to/model", Path to the pre-trained model .
 
 
 
