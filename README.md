@@ -20,8 +20,8 @@ In this repository, you will find the following:
 #### 1.2 Create environment 
 
 ```bash
-conda create -n glms python=3.8
-conda activate glms
+conda create -n gfms python=3.8
+conda activate gfms
 ```
 
 #### 1.3 Install dependencies
