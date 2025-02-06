@@ -11,7 +11,7 @@ In this repository, you will find the following:
 
 - Comprehensive guidelines for both pre-training and fine-tuning the models, including preprocessing steps and handling special cases in your data.
 - Resources and example scripts to assist you in preparing your data and running the models for various tasks.
-- The related code is in `./plantgfm`:
+- The related code is in **`./plantgfm`**::
   - **`configuration_plantgfm.py`**: This is the configuration file for the PlantGFM model.
   - **`modeling_plantgfm.py`**: This file contains the model architecture for PlantGFM, along with code for classification and regression tasks.
   - **`modeling_segmentgfm.py`**: This script is focused on gene prediction tasks.
