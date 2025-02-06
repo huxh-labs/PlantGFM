@@ -9,7 +9,7 @@ Welcome to the official repository for the paper "PlantGFM: A Genetic Foundation
 
 In this repository, you will find the following:
 
-- Comprehensive guidelines for both pre-training and fine-tuning the models, including preprocessing steps, model selection advice, and handling special cases in your data.
+- Comprehensive guidelines for both pre-training and fine-tuning the models, including preprocessing steps and handling special cases in your data.
 - Resources and example scripts to assist you in preparing your data and running the models for various tasks.
 
 
